@@ -156,6 +156,7 @@ body {
     letter-spacing: 2px;
     color: #efefef;
     top: 0;
+    text-transform: uppercase;
 }
 
 .player1 .name {

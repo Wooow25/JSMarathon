@@ -36,19 +36,6 @@ function createPlayer( player ){
 
     const character= createElem('div','character');
     playNum.appendChild(character);
-    // character.addEventListener("click",()=>{
-    //     const damage = Math.floor(Math.random() *30)
-    //     player.hp-=damage
-    //     player.attack()
-    //     life.style.width=player.hp+'%'
-    //     if (player.hp===0){
-    //         alert('FINISH HIM')
-    //     } else if (player.hp<0){
-    //         alert(player.name + ' lose!')
-    //         location.reload()
-    // }
-    // })
-
     const img= createElem('img');
     img.src=player.img;
     character.appendChild(img);
@@ -66,7 +53,7 @@ const player1 = {
     weapon:[],
     attack: function(){
         console.log(this.name +' Fight...')   
-    },
+    }
 };
 
 const player2 = {
@@ -78,6 +65,8 @@ const player2 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
+
+
 };
 
 const randomButton = document.querySelector('.button');
@@ -86,16 +75,36 @@ function getRandom(number){
     return Math.floor(Math.random() *number); 
 }
 
-function changeHP(player){
-    const playerLife = document.querySelector('.player'+player.numb+' .life');
-    player.hp -=  getRandom(20); 
-    if (player.hp>0){
-        playerLife.style.width=player.hp+'%';
-    }else{
-        playerLife.style.width=0+'%';
+// function changeHP(player){
+//     const playerLife = document.querySelector('.player'+player.numb+' .life');
+//     player.hp -=  getRandom(20); 
+//     if (player.hp>0){
+//         playerLife.style.width=player.hp+'%';
+//     }else{
+//         playerLife.style.width=0+'%';
 
+//     }
+// }
+
+
+function changeHP(damage){
+    if (this.hp - damage <=0){
+        this.hp = 0;
+    } else{
+        this.hp -=  damage; 
     }
 }
+
+function elHP(){
+    return document.querySelector('.player'+this.numb)
+}
+
+function renderHP(hp){
+    elHP(player).style.width=player.hp+'%';
+}
+
+
+
 
 const winnTitle = createElem('div','loseTitle');
 function fightResult(){
@@ -118,8 +127,8 @@ function fightResult(){
 
 
 randomButton.addEventListener('click', ()=>{
-    changeHP(player1);
-    changeHP(player2);
+    player1.changeHP(getRandom(20));
+    console.log(player1.hp)
     const result =fightResult()
     if (result) {
         start.appendChild(winnTitle)

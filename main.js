@@ -11,6 +11,21 @@
 // const player1 = new Player("scorpion",'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif'); 
 // const player2 = new Player("kitana",'http://reactmarathon-api.herokuapp.com/assets/kitana.gif'); 
 
+
+
+// function changeHP(player){
+//     const playerLife = document.querySelector('.player'+player.numb+' .life');
+//     player.hp -=  getRandom(20); 
+//     if (player.hp>0){
+//         playerLife.style.width=player.hp+'%';
+//     }else{
+//         playerLife.style.width=0+'%';
+
+//     }
+// }
+
+
+
 function createElem(tag, classname){
     const $tag = document.createElement(tag)
     if (classname){
@@ -45,6 +60,24 @@ function createPlayer( player ){
 }
 
 
+function changeHP(damage) {
+    if (this.hp - damage <=0){
+        this.hp = 0;
+    } else{
+        this.hp -=  damage; 
+    }
+
+}
+
+function elHP(){
+    return document.querySelector('.player'+this.numb +' .life')
+}
+
+function renderHP(){
+    this.elHP().style.width=this.hp+'%';
+}
+
+
 const player1 = {
     numb: '1',
     name:'scorpion',
@@ -53,7 +86,10 @@ const player1 = {
     weapon:[],
     attack: function(){
         console.log(this.name +' Fight...')   
-    }
+    },
+    changeHP: changeHP,
+    renderHP: renderHP,
+    elHP: elHP,
 };
 
 const player2 = {
@@ -65,7 +101,9 @@ const player2 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
-
+    changeHP: changeHP,
+    renderHP: renderHP,
+    elHP: elHP,
 
 };
 
@@ -74,35 +112,6 @@ const randomButton = document.querySelector('.button');
 function getRandom(number){
     return Math.floor(Math.random() *number); 
 }
-
-// function changeHP(player){
-//     const playerLife = document.querySelector('.player'+player.numb+' .life');
-//     player.hp -=  getRandom(20); 
-//     if (player.hp>0){
-//         playerLife.style.width=player.hp+'%';
-//     }else{
-//         playerLife.style.width=0+'%';
-
-//     }
-// }
-
-
-function changeHP(damage){
-    if (this.hp - damage <=0){
-        this.hp = 0;
-    } else{
-        this.hp -=  damage; 
-    }
-}
-
-function elHP(){
-    return document.querySelector('.player'+this.numb)
-}
-
-function renderHP(hp){
-    elHP(player).style.width=player.hp+'%';
-}
-
 
 
 
@@ -128,7 +137,9 @@ function fightResult(){
 
 randomButton.addEventListener('click', ()=>{
     player1.changeHP(getRandom(20));
-    console.log(player1.hp)
+    player1.renderHP();
+    player2.changeHP(getRandom(20));
+    player2.renderHP();
     const result =fightResult()
     if (result) {
         start.appendChild(winnTitle)

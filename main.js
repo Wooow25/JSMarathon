@@ -11,19 +11,20 @@
 // const player1 = new Player("scorpion",'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif'); 
 // const player2 = new Player("kitana",'http://reactmarathon-api.herokuapp.com/assets/kitana.gif'); 
 
+const start = document.querySelector('.arenas')
 
-
-// function changeHP(player){
-//     const playerLife = document.querySelector('.player'+player.numb+' .life');
-//     player.hp -=  getRandom(20); 
-//     if (player.hp>0){
-//         playerLife.style.width=player.hp+'%';
-//     }else{
-//         playerLife.style.width=0+'%';
-
-//     }
-// }
-
+function createReloadButton(){
+    const reloadWrap = createElem('div', "reloadWrap");
+    const button = createElem('button', "button");
+    reloadWrap.appendChild(button)
+    start.appendChild(reloadWrap)
+    button.innerHTML= "Restart";
+    button.addEventListener('click', function(){
+        window.location.reload()
+    } )
+        
+    
+}
 
 
 function createElem(tag, classname){
@@ -34,7 +35,7 @@ function createElem(tag, classname){
     return $tag
 }
 
-const start = document.querySelector('.arenas')
+
 function createPlayer( player ){
     const playNum = createElem('div','player'+player.numb);
 
@@ -142,11 +143,13 @@ randomButton.addEventListener('click', ()=>{
     player2.renderHP();
     const result =fightResult()
     if (result) {
-        start.appendChild(winnTitle)
-        randomButton.disabled = true
+        start.appendChild(winnTitle);
+        randomButton.disabled = true;
+        createReloadButton();
     }
 } )
 
 
 start.append(createPlayer(player1))
 start.append(createPlayer(player2))
+

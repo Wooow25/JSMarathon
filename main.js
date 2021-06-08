@@ -67,7 +67,6 @@ const player1 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
-    status:'fighting'
 };
 
 const player2 = {
@@ -79,46 +78,38 @@ const player2 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
-    status:'fighting'
 };
 
 const randomButton = document.querySelector('.button');
 
+function getRandom(number){
+    return Math.floor(Math.random() *number); 
+}
+
 function changeHP(player){
     const playerLife = document.querySelector('.player'+player.numb+' .life');
-    player.hp -=  Math.floor(Math.random() *20)+1 ; 
+    player.hp -=  getRandom(20); 
     if (player.hp>0){
         playerLife.style.width=player.hp+'%';
     }else{
         playerLife.style.width=0+'%';
-        // start.appendChild(playerLose(player))
-        player.status = 'lose';
 
     }
-    console.log(player.status + ' '+ player.name + ' ' +player.hp);
 }
 
-// function playerLose(player){
-//     const loseTitle = createElem('div','loseTitle');
-//     loseTitle.innerHTML= name +' lose'
-//     return loseTitle
-// }
-
-function playerWinn(){
-    const winnTitle = createElem('div','loseTitle');
-    if (player1.status=='lose' && player2.status=='lose'){
-        winnTitle.innerHTML= 'Nobody' +' winn';
-        start.appendChild(winnTitle)
+const winnTitle = createElem('div','loseTitle');
+function fightResult(){
+    console.log( player1.name + ' ' +player1.hp);
+    console.log( player2.name + ' ' +player2.hp);
+    if (player1.hp<=0 && player2.hp<=0){
+        winnTitle.innerHTML= 'draw';
         return true
-    }
-    else if (player1.status=='lose'){
-        winnTitle.innerHTML= player1.name +' winn';
-        start.appendChild(winnTitle)
+    } else if (player1.hp<=0){
+        winnTitle.innerHTML= player2.name +' win';
         return true
 
-    }else if (player2.status=='lose') {
-        winnTitle.innerHTML= player2.name +' winn';
-        start.appendChild(winnTitle)
+    } else if (player2.hp<=0) {
+        winnTitle.innerHTML= player1.name +' win';
         return true
     } 
         
@@ -129,12 +120,10 @@ function playerWinn(){
 randomButton.addEventListener('click', ()=>{
     changeHP(player1);
     changeHP(player2);
-    const result =playerWinn()
+    const result =fightResult()
     if (result) {
+        start.appendChild(winnTitle)
         randomButton.disabled = true
-        // setTimeout(10000);
-        setTimeout(location.reload(), 4 * 1000);
-        // location.reload();
     }
 } )
 

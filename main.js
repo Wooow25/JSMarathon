@@ -186,7 +186,7 @@ formFight.addEventListener('submit',function(event) {
 
     console.log('AFTER:   '+player1.name +' '+ player1.hp+'      '+player2.name +' '+ player2.hp)
     console.log('____________________________')
-    
+
     const result =fightResult()
     if (result) {
         start.appendChild(winnTitle);
@@ -194,6 +194,4 @@ formFight.addEventListener('submit',function(event) {
         createReloadButton();
     }
         
-    
-
 })

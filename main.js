@@ -11,6 +11,22 @@
 // const player1 = new Player("scorpion",'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif'); 
 // const player2 = new Player("kitana",'http://reactmarathon-api.herokuapp.com/assets/kitana.gif'); 
 
+const start = document.querySelector('.arenas')
+
+function createReloadButton(){
+    const reloadWrap = createElem('div', "reloadWrap");
+    const button = createElem('button', "button");
+    reloadWrap.appendChild(button)
+    start.appendChild(reloadWrap)
+    button.innerHTML= "Restart";
+    button.addEventListener('click', function(){
+        window.location.reload()
+    } )
+        
+    
+}
+
+
 function createElem(tag, classname){
     const $tag = document.createElement(tag)
     if (classname){
@@ -19,7 +35,7 @@ function createElem(tag, classname){
     return $tag
 }
 
-const start = document.querySelector('.arenas')
+
 function createPlayer( player ){
     const playNum = createElem('div','player'+player.numb);
 
@@ -36,25 +52,30 @@ function createPlayer( player ){
 
     const character= createElem('div','character');
     playNum.appendChild(character);
-    // character.addEventListener("click",()=>{
-    //     const damage = Math.floor(Math.random() *30)
-    //     player.hp-=damage
-    //     player.attack()
-    //     life.style.width=player.hp+'%'
-    //     if (player.hp===0){
-    //         alert('FINISH HIM')
-    //     } else if (player.hp<0){
-    //         alert(player.name + ' lose!')
-    //         location.reload()
-    // }
-    // })
-
     const img= createElem('img');
     img.src=player.img;
     character.appendChild(img);
 
     // start.append(playNum)
     return playNum;
+}
+
+
+function changeHP(damage) {
+    if (this.hp - damage <=0){
+        this.hp = 0;
+    } else{
+        this.hp -=  damage; 
+    }
+
+}
+
+function elHP(){
+    return document.querySelector('.player'+this.numb +' .life')
+}
+
+function renderHP(){
+    this.elHP().style.width=this.hp+'%';
 }
 
 
@@ -67,6 +88,9 @@ const player1 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
+    changeHP: changeHP,
+    renderHP: renderHP,
+    elHP: elHP,
 };
 
 const player2 = {
@@ -78,6 +102,10 @@ const player2 = {
     attack: function(){
         console.log(this.name +' Fight...')   
     },
+    changeHP: changeHP,
+    renderHP: renderHP,
+    elHP: elHP,
+
 };
 
 const randomButton = document.querySelector('.button');
@@ -86,16 +114,7 @@ function getRandom(number){
     return Math.floor(Math.random() *number); 
 }
 
-function changeHP(player){
-    const playerLife = document.querySelector('.player'+player.numb+' .life');
-    player.hp -=  getRandom(20); 
-    if (player.hp>0){
-        playerLife.style.width=player.hp+'%';
-    }else{
-        playerLife.style.width=0+'%';
 
-    }
-}
 
 const winnTitle = createElem('div','loseTitle');
 function fightResult(){
@@ -118,15 +137,19 @@ function fightResult(){
 
 
 randomButton.addEventListener('click', ()=>{
-    changeHP(player1);
-    changeHP(player2);
+    player1.changeHP(getRandom(20));
+    player1.renderHP();
+    player2.changeHP(getRandom(20));
+    player2.renderHP();
     const result =fightResult()
     if (result) {
-        start.appendChild(winnTitle)
-        randomButton.disabled = true
+        start.appendChild(winnTitle);
+        randomButton.disabled = true;
+        createReloadButton();
     }
 } )
 
 
 start.append(createPlayer(player1))
 start.append(createPlayer(player2))
+

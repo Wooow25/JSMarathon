@@ -167,12 +167,8 @@ function playerAttack(){
 start.append(createPlayer(player1))
 start.append(createPlayer(player2))
 
-formFight.addEventListener('submit',function(event) {
+formFight.addEventListener('submit', function(event) {
     event.preventDefault();
-<<<<<<< HEAD
-
-=======
->>>>>>> 03db03c965e57279e44fdfa38fd70c04d02df9f0
     for (let i=0;i<2;i++){
         players[i].act=players[i].attack()
     }

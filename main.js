@@ -137,7 +137,7 @@ function fightResult(){
 
     } else if (player2.hp<=0) {
         winnTitle.innerHTML= player1.name +' win';
-        generateLogs( 'end' , player1, player2);
+        generateLogs('end', player1, player2);
         return true
     } 
     return false
@@ -184,7 +184,7 @@ function generateLogs(type, p1, p2, damage=0 ){
             break;
         }
         case 'end': {
-            const text= logs[type].replace('[playerWins]',p1.name.toUpperCase()).replace('[playerLose]',p2.name.toUpperCase());
+            const text= logs[type][getRandom(logs[type].length -1)].replace('[playerWins]', p1.name.toUpperCase()).replace('[playerLose]',p2.name.toUpperCase());
             el = `<p>${time} ${text} <p>`;
             break;
         }

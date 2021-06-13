@@ -23,9 +23,11 @@ const player1 = {
     hp : 100,
     img:'img/scorpion.gif',
     weapon:[],
-    attack: function(){
-        console.log(this.name +' Fight...')   
-    },
+    act:{},
+    // attack: function(){
+    //     console.log(this.name +' Fight...')   
+    // },
+    attack: playerAttack, 
     changeHP,
     renderHP,
     elHP,
@@ -37,9 +39,8 @@ const player2 = {
     hp : 100,
     img:'img/kitana.gif',
     weapon:[],
-    attack: function(){
-        console.log(this.name +' Fight...')   
-    },
+    act:{},
+    attack:  enemyAttack,
     changeHP,
     renderHP,
     elHP,
@@ -54,6 +55,7 @@ const HIT ={
 }
 
 const ATTACK = ['head','body','foot'];
+const players =[player1, player2]
 
 
 
@@ -168,21 +170,19 @@ start.append(createPlayer(player2))
 formFight.addEventListener('submit',function(event) {
     event.preventDefault();
 
-    const attack = playerAttack();
-    const enemy = enemyAttack();
-
-    console.log('BEFORE:   '+player1.name +' '+ player1.hp+'      '+player2.name +' '+ player2.hp)
-    console.log(player1.name +' attack '+ attack.hit +' with '+attack.value +' and defence '+attack.defence)
-    console.log(player2.name +' attack '+ enemy.hit +' with '+enemy.value +' and defence '+enemy.defence)
-
-    if (attack.defence !== enemy.hit){
-        player1.changeHP(attack.value)
-        player1.renderHP()
+    for (let i=0;i<2;i++){
+        players[i].act=players[i].attack()
     }
 
-    if (enemy.defence !== attack.hit){
-        player2.changeHP(enemy.value)
-        player2.renderHP()
+    console.log('BEFORE:   '+player1.name +' '+ player1.hp+'      '+player2.name +' '+ player2.hp)
+    console.log(player1.name +' attack '+ player1.act.hit +' with '+player1.act.value +' and defence '+player1.act.defence)
+    console.log(player2.name +' attack '+ player2.act.hit +' with '+player2.act.value +' and defence '+player2.act.defence)
+
+    for (let i=0;i<2;i++){
+        if (players[i].act.defence !== players[(i+1)%2].act.hit){
+            players[i].changeHP(players[(i+1)%2].act.value);
+            players[i].renderHP();
+        }
     }
 
     console.log('AFTER:   '+player1.name +' '+ player1.hp+'      '+player2.name +' '+ player2.hp)

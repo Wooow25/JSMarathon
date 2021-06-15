@@ -173,32 +173,34 @@ function generateLogs(type, p1, p2, damage=0 ){
     const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}   `;
     let el;
     switch (type){
-        case 'start': {
+        case 'start': 
             const text= logs[type].replace('[time]', time).replace('[player1]',p1.name.toUpperCase()).replace('[player2]',p2.name.toUpperCase());
             el = `<p>${text} <p>`;
             break;
-        }
-        case 'draw': {
+        
+        case 'draw': 
             const text= logs[type]
             el = `<p>${time} ${text} <p>`;
             break;
-        }
-        case 'end': {
+        
+        case 'end': 
             const text= logs[type][getRandom(logs[type].length -1)].replace('[playerWins]', p1.name.toUpperCase()).replace('[playerLose]',p2.name.toUpperCase());
             el = `<p>${time} ${text} <p>`;
             break;
-        }
-        case 'hit': {
+        
+        case 'hit': 
             const text= logs[type][getRandom(logs[type].length -1)].replace('[playerKick]',p1.name.toUpperCase()).replace('[playerDefence]',p2.name.toUpperCase());
             el = `<p>${time} ${text} Урон: ${damage} Жизни: ${p1.hp}<p>`;
             break;
-        }
-        case 'defence':{
+        
+        case 'defence':
             const text= logs[type][getRandom(logs[type].length -1)].replace('[playerKick]',p1.name.toUpperCase()).replace('[playerDefence]',p2.name.toUpperCase());
             el = `<p>${time} ${text} Жизни: ${p1.hp}<p>`;
             break;
-        }
-        default: el = 'WHAT???'
+        
+        default: 
+        el = 'WHAT???'
+        break;
 
     }
 

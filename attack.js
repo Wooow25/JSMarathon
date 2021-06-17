@@ -1,5 +1,5 @@
 import {getRandom,createElem, generateLogs} from "./utils.js";
-import { player1,player2 } from './player.js ';
+import { player1,player2 } from './game.js';
  
 const HIT ={
     head:30,

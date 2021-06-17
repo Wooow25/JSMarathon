@@ -1,5 +1,5 @@
-import getRandom from "./utils.js";
-
+import {getRandom,createElem, generateLogs} from "./utils.js";
+import { player1,player2 } from './player.js ';
  
 const HIT ={
     head:30,
@@ -35,4 +35,21 @@ export const playerAttack = () =>{
     return attack
 }
 
- 
+export const winnTitle = createElem('div','loseTitle');
+export const fightResult = () =>{
+    if (player1.hp<=0 && player2.hp<=0){
+        winnTitle.innerHTML= 'draw';
+        generateLogs( 'draw' , player1, player2);
+        return true
+    } else if (player1.hp<=0){
+        winnTitle.innerHTML= player2.name +' win';
+        generateLogs( 'end' , player2, player1);
+        return true
+
+    } else if (player2.hp<=0) {
+        winnTitle.innerHTML= player1.name +' win';
+        generateLogs('end', player1, player2);
+        return true
+    } 
+    return false
+}

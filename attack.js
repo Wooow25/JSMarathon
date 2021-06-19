@@ -1,5 +1,4 @@
 import {getRandom,createElem, generateLogs} from "./utils.js";
-import { player1,player2 } from './game.js';
  
 const HIT ={
     head:30,
@@ -36,7 +35,7 @@ export const playerAttack = () =>{
 }
 
 export const winnTitle = createElem('div','loseTitle');
-export const fightResult = () =>{
+export const fightResult = (player1, player2) =>{
     if (player1.hp<=0 && player2.hp<=0){
         winnTitle.innerHTML= 'draw';
         generateLogs( 'draw' , player1, player2);

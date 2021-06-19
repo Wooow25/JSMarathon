@@ -8,10 +8,11 @@ class Player{
         this.img=props.img;
         this.selector = `player${this.numb}`;
         this.rootSelector = props.rootSelector;
-        this.attack = function(){
-            console.log(this.name +' Fight...')
-        };
+       
     }
+    attack = ()=>{
+        console.log(this.name +' Fight...')
+    };
 
      changeHP=(damage)=> {
         if (this.hp - damage <=0){

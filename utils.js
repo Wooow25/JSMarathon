@@ -1,5 +1,4 @@
 import logs from './logs.js'
-
 export const getRandom = (number) => Math.ceil(Math.random()*number); 
 
 export const createElem = (tag, classname) => {
@@ -34,12 +33,12 @@ export const generateLogs = (type, p1, p2, damage=0 ) => {
         
         case 'hit': 
              text= logs[type][getRandom(logs[type].length -1)].replace('[playerKick]',p1.name.toUpperCase()).replace('[playerDefence]',p2.name.toUpperCase());
-            el = `<p>${time} ${text} Урон: ${damage} Жизни: ${p1.hp}<p>`;
+            el = `<p>${time} ${text} ${p2.name.toUpperCase()} получил урон: ${damage} Жизни: ${p2.hp}<p>`;
             break;
         
         case 'defence':
              text= logs[type][getRandom(logs[type].length -1)].replace('[playerKick]',p1.name.toUpperCase()).replace('[playerDefence]',p2.name.toUpperCase());
-            el = `<p>${time} ${text} Жизни: ${p1.hp}<p>`;
+            el = `<p>${time} ${text}   Жизни ${p1.name.toUpperCase()}: ${p1.hp}<p>`;
             break;
         
         default: 

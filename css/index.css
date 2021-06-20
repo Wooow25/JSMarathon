@@ -69,9 +69,9 @@ body {
     height: 367px;
     z-index: 3;
     bottom: 44px;
-    right: 50%;
-    margin-right: -105px;
-    transform: translate(-205%, 0px);
+    right: -0%;
+    margin-right: 105px;
+    transform: translate(0, 0px) scale(-1, 1);
 }
 
 .enemy img {
@@ -198,4 +198,15 @@ body {
     cursor: pointer;
     font-family: "Mortal Kombat 3";
     outline: none;
+}
+
+.fight{
+    position: absolute;
+    left: 50% ;
+    transform: translate(-50%, 50%);
+    z-index:99;
+    -webkit-transform: translate(-50%, 50%);
+    -moz-transform: translate(-50%, 50%);
+    -ms-transform: translate(-50%, 50%);
+    -o-transform: translate(-50%, 50%);
 }
